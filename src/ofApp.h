@@ -12,6 +12,8 @@ class ofApp : public ofBaseApp{
 		void updateZValue();
 		void updateColors();
 
+		float easeInOutQuad(float t);
+
 		// mesh stuff
 		ofEasyCam cam;
 		ofMesh mesh;
