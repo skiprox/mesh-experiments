@@ -1,15 +1,16 @@
 #include "ofApp.h"
 
 #define LINE_SIZE 40
+#define ROW_SIZE 160
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofBackground(0);
-	ofSetFrameRate(24);
+	ofSetFrameRate(40);
 	float width = ofGetWidth();
 	float height = ofGetHeight();
 	// setup the rtl sdr dongle
-	int rowsColsVal = LINE_SIZE * 4;
+	int rowsColsVal = ROW_SIZE;
 	cout << "HOW BIG IS OUR MESH? " << rowsColsVal << endl;
 	// create the mesh
 	for (int c = 0; c<rowsColsVal; c++){
@@ -67,15 +68,19 @@ void ofApp::update(){
 			ekgLines.erase(ekgLines.begin() + i);
 		}
 	}
+	// Give em all some noise
+	for (int i = 0; i < ekgLines.size(); i++) {
+		ekgLines[i] += ofSignedNoise(i, ofGetFrameNum() * 0.05) * 10.0;
+	}
 
-	// for (int i = 0; i < ekgLines.size(); i++) {
-	// 	int row = floor (i/LINE_SIZE);
-	// 	// cout << row << endl;
-	// 	float lerpValue = ofMap((float) row, 0.0, (float) LINE_SIZE, 1.0, 0.0);
-	// 	//float lerpValue = 1.0/(row + 1.0);
-	// 	// cout << lerpValue << endl;
-	// 	ekgLines[i] = ofLerp(ekgLinesSaved[i], 0.0, lerpValue);
-	// }
+	for (int i = 0; i < mesh.getVertices().size(); i++) {
+		if (i % 16 == 0 && i/16 < ekgLines.size()) {
+			int row = (int)i/ROW_SIZE;
+			float howFarBack = ofMap(row, 0, ROW_SIZE, 0.0, 1.0);
+			// cout << howFarBack << endl;
+			ekgLines[i/16] *= howFarBack + 0.2;
+		}
+	}
 
 	updateZValue();
 	updateColors();
@@ -105,10 +110,14 @@ void ofApp::updateZValue(){
 			if (ceil(i/16.0) <= ekgLines.size()) {
 				float easedValue = easeInOutQuad((i % 16)/16.0);
 				vertex.z = ofMap(easedValue, 0.0, 1.0, ekgLines[floor(i/16.0)], ekgLines[ceil(i/16.0)]);
-				// cout << "THE FLOOR AND THE CEIL " << floor(i/16) << " " << ceil(i/16) << endl;
-				// vertex.z = easeInOutQuad(i % 16, ekgLines[floor(i/16.0)], ekgLines[ceil(i/16.0)], 16);
 			}
 		}
+		// float noise =
+  //       ofSignedNoise ( vertex.x * 0.1,    // x pos
+  //                       vertex.y * 0.1,    // y pos
+  //                       ofGetElapsedTimef() * 0.5    // time (z) to animate
+  //                      );
+  //       vertex.z += noise * 10.0;
 	}
 }
 

@@ -17,8 +17,8 @@ class ofApp : public ofBaseApp{
 		// mesh stuff
 		ofEasyCam cam;
 		ofMesh mesh;
-		ofColor colorNear = ofColor::fuchsia;
-		ofColor colorFar = ofColor::navy;
+		ofColor colorNear = ofColor(101, 114, 235);
+		ofColor colorFar = ofColor(203, 255, 181);
 		float noiseAmp = 40.f;
 		vector<float> ekgLines;
 		vector<float> ekgLinesSaved;
