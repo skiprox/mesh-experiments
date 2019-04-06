@@ -56,11 +56,14 @@ void ofApp::update(){
 	// Create LINE_SIZE random points
 	if (ofGetFrameNum() % LINE_SIZE == 0) {
 		for (int i = 0; i < LINE_SIZE; i++) {
-			ekgLines.push_back(ofRandom(-80.0f, 80.0f));
+			float ran = ofRandom(-280.0f, 280.0f);
+			ekgLines.push_back(ran);
+			ekgLinesSaved.push_back(ran);
 		}
 	} else {
 		for (int i = 0; i < LINE_SIZE; i++) {
 			ekgLines.push_back(0.0);
+			ekgLinesSaved.push_back(0.0);
 		}
 	}
 	// Delete from the front of the vector if we're
@@ -68,19 +71,21 @@ void ofApp::update(){
 	if (ekgLines.size() > LINE_SIZE * LINE_SIZE) {
 		for (int i = 0; i < LINE_SIZE; i++) {
 			ekgLines.erase(ekgLines.begin() + i);
+			ekgLinesSaved.erase(ekgLines.begin() + i);
 		}
 	}
 	// Give em all some noise
 	for (int i = 0; i < ekgLines.size(); i++) {
-		ekgLines[i] += ofSignedNoise(i, ofGetFrameNum() * 0.05) * 10.0;
+		float signedNoise = ofSignedNoise(i, ofGetFrameNum() * 0.05) * 5.0;
+		ekgLines[i] += signedNoise;
+		ekgLinesSaved[i] += signedNoise;
 	}
 
 	for (int i = 0; i < mesh.getVertices().size(); i++) {
 		if (i % valueIncrementer == 0 && i/valueIncrementer < ekgLines.size()) {
 			int row = (int)i/ROW_SIZE;
-			float howFarBack = ofMap(row, 0, ROW_SIZE, 0.0, 1.0);
-			// cout << howFarBack << endl;
-			ekgLines[i/valueIncrementer] *= howFarBack + 0.2;
+			float lerpValue = ofMap(abs((float)row - (float)ROW_SIZE/2.0), 0.0, (float)ROW_SIZE/2.0, 0.0, 1.0);
+			ekgLines[i/valueIncrementer] = ofLerp(ekgLinesSaved[i/valueIncrementer], 0.0, lerpValue);
 		}
 	}
 
