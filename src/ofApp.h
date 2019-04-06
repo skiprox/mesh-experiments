@@ -22,6 +22,7 @@ class ofApp : public ofBaseApp{
 		float noiseAmp = 40.f;
 		vector<float> ekgLines;
 		vector<float> ekgLinesSaved;
+		int valueIncrementer;
 
 		// Shaders
 		ofShader shader;

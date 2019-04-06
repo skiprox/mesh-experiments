@@ -1,14 +1,16 @@
 #include "ofApp.h"
 
-#define LINE_SIZE 40
-#define ROW_SIZE 160
+#define LINE_SIZE 50
+#define ROW_SIZE 250
+#define FRAMERATE 48
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofBackground(0);
-	ofSetFrameRate(40);
+	ofSetFrameRate(FRAMERATE);
 	float width = ofGetWidth();
 	float height = ofGetHeight();
+	valueIncrementer = (ROW_SIZE/LINE_SIZE) * (ROW_SIZE/LINE_SIZE);
 	// setup the rtl sdr dongle
 	int rowsColsVal = ROW_SIZE;
 	cout << "HOW BIG IS OUR MESH? " << rowsColsVal << endl;
@@ -74,11 +76,11 @@ void ofApp::update(){
 	}
 
 	for (int i = 0; i < mesh.getVertices().size(); i++) {
-		if (i % 16 == 0 && i/16 < ekgLines.size()) {
+		if (i % valueIncrementer == 0 && i/valueIncrementer < ekgLines.size()) {
 			int row = (int)i/ROW_SIZE;
 			float howFarBack = ofMap(row, 0, ROW_SIZE, 0.0, 1.0);
 			// cout << howFarBack << endl;
-			ekgLines[i/16] *= howFarBack + 0.2;
+			ekgLines[i/valueIncrementer] *= howFarBack + 0.2;
 		}
 	}
 
@@ -104,12 +106,12 @@ void ofApp::updateZValue(){
 	for (int i = 0; i < mesh.getVertices().size(); i++) {
 		glm::vec3& vertex = mesh.getVertices()[i];
 		vertex.z = 0.0;
-		if (i % 16 == 0 && i/16 < ekgLines.size()) {
-			vertex.z = ekgLines[i/16];
+		if (i % valueIncrementer == 0 && i/valueIncrementer < ekgLines.size()) {
+			vertex.z = ekgLines[i/valueIncrementer];
 		} else {
-			if (ceil(i/16.0) <= ekgLines.size()) {
-				float easedValue = easeInOutQuad((i % 16)/16.0);
-				vertex.z = ofMap(easedValue, 0.0, 1.0, ekgLines[floor(i/16.0)], ekgLines[ceil(i/16.0)]);
+			if (ceil(i/(float)valueIncrementer) <= ekgLines.size()) {
+				float easedValue = easeInOutQuad((i % valueIncrementer)/(float)valueIncrementer);
+				vertex.z = ofMap(easedValue, 0.0, 1.0, ekgLines[floor(i/(float)valueIncrementer)], ekgLines[ceil(i/(float)valueIncrementer)]);
 			}
 		}
 		// float noise =
