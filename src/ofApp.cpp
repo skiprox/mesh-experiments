@@ -17,19 +17,19 @@ void ofApp::setup(){
 	// create the mesh
 	for (int c = 0; c<rowsColsVal; c++){
 	    for (int r = 0; r<rowsColsVal; r++){
-	        
+
 	        glm::vec3 pos;      // grid centered at 0,0,0
-	        
+
 	        float halfWidth     = width * 0.5;
 	        float halfHeight    = height * 0.5;
-	        
+
 	        pos.x = ofMap(r, 0, rowsColsVal-1, -halfWidth, halfWidth);
 	        pos.y = ofMap(c, 0, rowsColsVal-1, halfHeight, -halfHeight);    // Y+ is up in 3D!
 	        pos.z = 0;    // add depth later
-	        
+
 	        // add the point to the mesh
 	        mesh.addVertex(pos);
-	        
+
 	        // add a color for the point
 	        mesh.addColor(ofColor());
 
@@ -39,7 +39,7 @@ void ofApp::setup(){
 	            mesh.addIndex(index);               // A    - this pt
 	            mesh.addIndex(index - 1);           // B    - + col
 	            mesh.addIndex(index - rowsColsVal);        // C    - + row
-	            
+
 	            // triangle 2
 	            mesh.addIndex(index - 1);           // B
 	            mesh.addIndex(index - 1 - rowsColsVal);    // D
@@ -71,7 +71,7 @@ void ofApp::update(){
 	if (ekgLines.size() > LINE_SIZE * LINE_SIZE) {
 		for (int i = 0; i < LINE_SIZE; i++) {
 			ekgLines.erase(ekgLines.begin() + i);
-			ekgLinesSaved.erase(ekgLines.begin() + i);
+			ekgLinesSaved.erase(ekgLinesSaved.begin() + i);
 		}
 	}
 	// Give em all some noise
@@ -130,20 +130,20 @@ void ofApp::updateZValue(){
 
 // --------------------------------
 void ofApp::updateColors(){
-    
+
     // map colors based on vertex z / depth
-    
+
     for (int i=0; i<mesh.getVertices().size(); i++){
-        
+
         // 1 color per vertex
         glm::vec3& vertex = mesh.getVertices()[i];
-        
+
         // get depth as percent of noise range
         float depthPercent = ofMap(vertex.z, -noiseAmp, noiseAmp, 0, 1, true);    // map 0-1
 
         // lerp color
         ofColor color = colorFar.getLerped( colorNear, depthPercent );
-        
+
         mesh.setColor(i, color);        // set mesh color
     }
 
@@ -158,5 +158,5 @@ float ofApp::easeInOutQuad(float t) {
 	} else {
 		return (-1.0 + (4.0 - 2.0 * t) * t);
 	}
-	
+
 }
