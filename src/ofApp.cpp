@@ -10,6 +10,7 @@ void ofApp::setup(){
 	ofSetFrameRate(FRAMERATE);
 	gui.setup();
 	gui.add(noiseAmp.set("Noise Amp", 40.0, 0.0, 100.0));
+	gui.add(noiseScale.set("Noise Scale", 0.1, 0.0, 10.0));
 	gui.add(frameMultiplier.set("Frame Multiplier", 0.5, 0.0, 2.0));
 	gui.add(noiseMultiplier.set("Noise Multiplier", 5.0, 0.0, 10.0));
 	gui.add(randomRange.set("Random Range", 560.0, 0.0, 1200.0));
@@ -81,7 +82,7 @@ void ofApp::update(){
 	}
 	// Give em all some noise
 	for (int i = 0; i < ekgLines.size(); i++) {
-		float signedNoise = ofSignedNoise(i, ofGetFrameNum() * frameMultiplier) * noiseMultiplier;
+		float signedNoise = ofSignedNoise(i * noiseScale, ofGetFrameNum() * frameMultiplier) * noiseMultiplier;
 		ekgLines[i] += signedNoise;
 		ekgLinesSaved[i] += signedNoise;
 	}
