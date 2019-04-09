@@ -9,6 +9,168 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
+			<key>7FE666AFC0EAD6DA657B13D8</key>
+			<dict>
+				<key>fileRef</key>
+				<string>E6FCFD11B7CAB7995C6F2862</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>E6FCFD11B7CAB7995C6F2862</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tinyxmlparser.cpp</string>
+				<key>path</key>
+				<string>../../../openFrameworks/addons/ofxXmlSettings/libs/tinyxmlparser.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E789CD929887709EF81A7C88</key>
+			<dict>
+				<key>fileRef</key>
+				<string>E0AFC20DABC76512EEB9CB28</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>E0AFC20DABC76512EEB9CB28</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tinyxmlerror.cpp</string>
+				<key>path</key>
+				<string>../../../openFrameworks/addons/ofxXmlSettings/libs/tinyxmlerror.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>A0DBF44296F69209D6439875</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tinyxml.h</string>
+				<key>path</key>
+				<string>../../../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>6E54289412D2D94F45A05113</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>D084E33AD2553757FCE058CA</string>
+					<string>A0DBF44296F69209D6439875</string>
+					<string>E0AFC20DABC76512EEB9CB28</string>
+					<string>E6FCFD11B7CAB7995C6F2862</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>libs</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>484278492F1DE95152E5D981</key>
+			<dict>
+				<key>fileRef</key>
+				<string>D084E33AD2553757FCE058CA</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>D084E33AD2553757FCE058CA</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tinyxml.cpp</string>
+				<key>path</key>
+				<string>../../../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>81B1B0BFE2B6A9F6DE878237</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxXmlSettings.h</string>
+				<key>path</key>
+				<string>../../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>6ECEF0D76BC33727823EADFF</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>C1504E910301310523FD1651</string>
+					<string>81B1B0BFE2B6A9F6DE878237</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>src</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>1F4FB5C423662B96ADFDCC0B</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>6ECEF0D76BC33727823EADFF</string>
+					<string>6E54289412D2D94F45A05113</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>ofxXmlSettings</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>51250BD1E6B81CC30373C207</key>
+			<dict>
+				<key>fileRef</key>
+				<string>C1504E910301310523FD1651</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>C1504E910301310523FD1651</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxXmlSettings.cpp</string>
+				<key>path</key>
+				<string>../../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>1E6224DDD57C5BBC67A3D596</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -634,8 +796,11 @@ fi
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
 						<string>../../../openFrameworks/addons/ofxEasing/src</string>
 						<string>../../../openFrameworks/addons/ofxGui/src</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/libs</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/src</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
@@ -695,8 +860,11 @@ fi
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
 						<string>../../../openFrameworks/addons/ofxEasing/src</string>
 						<string>../../../openFrameworks/addons/ofxGui/src</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/libs</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/src</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>
@@ -740,6 +908,7 @@ fi
 				<array>
 					<string>0D0595A62FF5ED8D37029107</string>
 					<string>480A780D8D0308AE4A368801</string>
+					<string>1F4FB5C423662B96ADFDCC0B</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -894,8 +1063,11 @@ fi
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
 						<string>../../../openFrameworks/addons/ofxEasing/src</string>
 						<string>../../../openFrameworks/addons/ofxGui/src</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/libs</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/src</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
@@ -953,8 +1125,11 @@ fi
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
 						<string>../../../openFrameworks/addons/ofxEasing/src</string>
 						<string>../../../openFrameworks/addons/ofxGui/src</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/libs</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/src</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
@@ -1022,6 +1197,10 @@ fi
 					<string>0ECEF3ACC2803A59D9020003</string>
 					<string>76018AC3170CFBCC83303514</string>
 					<string>2F79EB98F746623743E2432C</string>
+					<string>51250BD1E6B81CC30373C207</string>
+					<string>484278492F1DE95152E5D981</string>
+					<string>E789CD929887709EF81A7C88</string>
+					<string>7FE666AFC0EAD6DA657B13D8</string>
 				</array>
 				<key>isa</key>
 				<string>PBXSourcesBuildPhase</string>
@@ -1107,8 +1286,11 @@ fi
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
 						<string>../../../openFrameworks/addons/ofxEasing/src</string>
 						<string>../../../openFrameworks/addons/ofxGui/src</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/libs</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/src</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>
@@ -1153,8 +1335,11 @@ fi
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
 						<string>../../../openFrameworks/addons/ofxEasing/src</string>
 						<string>../../../openFrameworks/addons/ofxGui/src</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/libs</string>
+						<string>../../../openFrameworks/addons/ofxXmlSettings/src</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>

@@ -2,12 +2,17 @@
 
 #define LINE_SIZE 50
 #define ROW_SIZE 250
-#define FRAMERATE 48
+#define FRAMERATE 24
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofBackground(0);
 	ofSetFrameRate(FRAMERATE);
+	gui.setup();
+	gui.add(noiseAmp.set("Noise Amp", 40.0, 0.0, 100.0));
+	gui.add(frameMultiplier.set("Frame Multiplier", 0.5, 0.0, 2.0));
+	gui.add(noiseMultiplier.set("Noise Multiplier", 5.0, 0.0, 10.0));
+	gui.add(randomRange.set("Random Range", 560.0, 0.0, 1200.0));
 	float width = ofGetWidth();
 	float height = ofGetHeight();
 	valueIncrementer = (ROW_SIZE/LINE_SIZE) * (ROW_SIZE/LINE_SIZE);
@@ -56,7 +61,7 @@ void ofApp::update(){
 	// Create LINE_SIZE random points
 	if (ofGetFrameNum() % LINE_SIZE == 0) {
 		for (int i = 0; i < LINE_SIZE; i++) {
-			float ran = ofRandom(-280.0f, 280.0f);
+			float ran = ofRandom(-randomRange/2.0, randomRange/2.0);
 			ekgLines.push_back(ran);
 			ekgLinesSaved.push_back(ran);
 		}
@@ -76,7 +81,7 @@ void ofApp::update(){
 	}
 	// Give em all some noise
 	for (int i = 0; i < ekgLines.size(); i++) {
-		float signedNoise = ofSignedNoise(i, ofGetFrameNum() * 0.05) * 5.0;
+		float signedNoise = ofSignedNoise(i, ofGetFrameNum() * frameMultiplier) * noiseMultiplier;
 		ekgLines[i] += signedNoise;
 		ekgLinesSaved[i] += signedNoise;
 	}
@@ -104,6 +109,7 @@ void ofApp::draw(){
     //shader.end();
     ofDisableDepthTest();
     cam.end();
+    gui.draw();
 }
 
 //--------------------------------------------------------------
