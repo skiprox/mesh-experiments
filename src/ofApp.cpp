@@ -9,11 +9,14 @@ void ofApp::setup(){
 	ofBackground(0);
 	ofSetFrameRate(FRAMERATE);
 	gui.setup();
-	gui.add(noiseAmp.set("Noise Amp", 40.0, 0.0, 100.0));
+	gui.add(noiseAmp.set("Noise Amp", 100.0, 0.0, 200.0));
 	gui.add(noiseScale.set("Noise Scale", 0.1, 0.0, 10.0));
+	gui.add(lineFrequency.set("Line Frequency", 10, 0, 50));
 	gui.add(frameMultiplier.set("Frame Multiplier", 0.5, 0.0, 2.0));
 	gui.add(noiseMultiplier.set("Noise Multiplier", 5.0, 0.0, 10.0));
 	gui.add(randomRange.set("Random Range", 560.0, 0.0, 1200.0));
+	gui.add(colorNear.set("Color Near", ofColor(101, 114, 235), ofColor(0,0,0), ofColor(255,255,255)));
+	gui.add(colorFar.set("Color Far", ofColor(203, 255, 181), ofColor(0,0,0), ofColor(255,255,255)));
 	float width = ofGetWidth();
 	float height = ofGetHeight();
 	valueIncrementer = (ROW_SIZE/LINE_SIZE) * (ROW_SIZE/LINE_SIZE);
@@ -60,7 +63,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	// Create LINE_SIZE random points
-	if (ofGetFrameNum() % LINE_SIZE == 0) {
+	if (ofGetFrameNum() % lineFrequency == 0) {
 		for (int i = 0; i < LINE_SIZE; i++) {
 			float ran = ofRandom(-randomRange/2.0, randomRange/2.0);
 			ekgLines.push_back(ran);
@@ -149,7 +152,7 @@ void ofApp::updateColors(){
         float depthPercent = ofMap(vertex.z, -noiseAmp, noiseAmp, 0, 1, true);    // map 0-1
 
         // lerp color
-        ofColor color = colorFar.getLerped( colorNear, depthPercent );
+        ofColor color = colorFar.get().getLerped( colorNear.get(), depthPercent );
 
         mesh.setColor(i, color);        // set mesh color
     }

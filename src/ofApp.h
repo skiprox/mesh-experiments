@@ -25,8 +25,11 @@ class ofApp : public ofBaseApp{
     	ofParameter<float> noiseMultiplier;
     	ofParameter<float> randomRange;
     	ofParameter<float> noiseScale;
-		ofColor colorNear = ofColor(101, 114, 235);
-		ofColor colorFar = ofColor(203, 255, 181);
+    	ofParameter<int> lineFrequency;
+    	ofParameter<ofColor> colorNear;
+    	ofParameter<ofColor> colorFar;
+  		// ofColor colorNear = ofColor(101, 114, 235);
+		// ofColor colorFar = ofColor(203, 255, 181);
 		// float noiseAmp = 40.f;
 		vector<float> ekgLines;
 		vector<float> ekgLinesSaved;
