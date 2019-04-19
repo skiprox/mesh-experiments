@@ -11,7 +11,7 @@ void ofApp::setup(){
 	gui.setup();
 	gui.add(noiseAmp.set("Noise Amp", 100.0, 0.0, 200.0));
 	gui.add(noiseScale.set("Noise Scale", 0.1, 0.0, 10.0));
-	gui.add(lineFrequency.set("Line Frequency", 10, 0, 50));
+	gui.add(lineFrequency.set("Line Frequency", 10, 4, 100));
 	gui.add(frameMultiplier.set("Frame Multiplier", 0.5, 0.0, 2.0));
 	gui.add(noiseMultiplier.set("Noise Multiplier", 5.0, 0.0, 10.0));
 	gui.add(randomRange.set("Random Range", 560.0, 0.0, 1200.0));
@@ -89,7 +89,8 @@ void ofApp::update(){
 		ekgLines[i] += signedNoise;
 		ekgLinesSaved[i] += signedNoise;
 	}
-
+	// Animate the random high/low points to swing up towards the center,
+	// and back down towards the end
 	for (int i = 0; i < mesh.getVertices().size(); i++) {
 		if (i % valueIncrementer == 0 && i/valueIncrementer < ekgLines.size()) {
 			int row = (int)i/ROW_SIZE;
@@ -97,20 +98,16 @@ void ofApp::update(){
 			ekgLines[i/valueIncrementer] = ofLerp(ekgLinesSaved[i/valueIncrementer], 0.0, lerpValue);
 		}
 	}
-
+	// Update the Z values and the colors
 	updateZValue();
 	updateColors();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	// Why is this shader not fucking working
 	cam.begin();
     ofEnableDepthTest();
-    //shader.begin();
-    //shader.setUniform1f("u_time", ofGetElapsedTimef());
     mesh.draw();
-    //shader.end();
     ofDisableDepthTest();
     cam.end();
     gui.draw();
@@ -118,23 +115,47 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::updateZValue(){
+	// Here we ease the values in each line with each other,
+	// picking the high/low points and then easing those around them
+	// into the next high/low point
 	for (int i = 0; i < mesh.getVertices().size(); i++) {
 		glm::vec3& vertex = mesh.getVertices()[i];
 		vertex.z = 0.0;
+		// Every X points in the line, we use the value from ekgLines
+		// as the z vertex for that point (where X is the valueIncrementer)
 		if (i % valueIncrementer == 0 && i/valueIncrementer < ekgLines.size()) {
 			vertex.z = ekgLines[i/valueIncrementer];
-		} else {
+		} else { // Otherwise, we ease the values around that high/low point into the next one
 			if (ceil(i/(float)valueIncrementer) <= ekgLines.size()) {
 				float easedValue = easeInOutQuad((i % valueIncrementer)/(float)valueIncrementer);
 				vertex.z = ofMap(easedValue, 0.0, 1.0, ekgLines[floor(i/(float)valueIncrementer)], ekgLines[ceil(i/(float)valueIncrementer)]);
 			}
 		}
-		// float noise =
-  //       ofSignedNoise ( vertex.x * 0.1,    // x pos
-  //                       vertex.y * 0.1,    // y pos
-  //                       ofGetElapsedTimef() * 0.5    // time (z) to animate
-  //                      );
-  //       vertex.z += noise * 10.0;
+	}
+	// Here we want to ease the values from one line to the next,
+	// which we do by getting the offset of the lines that have
+	// meaningful data, ignoring those lines, and easing all values
+	// in other lines to those lines
+	//
+	// THIS WHOLE THING IS EXTREMELY FUCKING BROKEN
+	int valueLineOffset = ofGetFrameNum() % lineFrequency;
+	int verticesSize = mesh.getVertices().size();
+	for (int i = 0; i < verticesSize; i++) {
+		int lineNumber = (int)i/ROW_SIZE;
+		int easeDuration = (int)lineFrequency/2.0;
+		int linePositionBetween = (lineNumber - valueLineOffset) % easeDuration;
+		if (linePositionBetween != 0) {
+			float easedValue = easeInOutQuad(linePositionBetween/easeDuration);
+			int startEase = i - (ROW_SIZE * linePositionBetween);
+			int endEase = i + (ROW_SIZE * (easeDuration - linePositionBetween));
+			// This is not working, idk why
+			// It's supposed to ease the value between the value
+			// of the startEase and endEase
+			if (startEase >= 0 && endEase >= 0 && startEase <= verticesSize && endEase <= verticesSize) {
+				glm::vec3& newVertex = mesh.getVertices()[i];
+				newVertex.z = ofMap(easedValue, 0.0, 1.0, mesh.getVertices()[startEase].z, mesh.getVertices()[endEase].z);
+			}
+		}
 	}
 }
 
